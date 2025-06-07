@@ -1,44 +1,58 @@
+Item Drop Tracker for FarmRPG
+A lightweight Tamper-monkey userscript that adds a real-time statistics box to every Explore area in FarmRPG.
+It counts — and keeps counting — every item you loot, the exact stamina you spend, and how many Apple Ciders or Arnold Palmers you burn through while farming.
 
+Features
+Live item counters – all items the location can drop are shown from the moment you enter.
 
+Automatic discovery – the script reads the location’s info page once and never hard-codes lists.
 
+True stamina usage – Wanderer (or other stamina discounts) are measured, not guessed.
 
+Inventory-cap highlight – items you can’t pick up (grey icons) get a red background; the tint is removed automatically when space is free.
 
+Per-location reset – a tiny “Reset” button wipes only the current area’s session.
 
-🔍 What it shows
-Stat	Details
-Item counters	Every item the location can drop – auto-discovered from the location info page.
-# of Explores	Normal clicks plus the extra explores bundled into Apple Cider.
-Stamina used	Real stamina delta after Wanderer perk etc.
-Apple Cider / Arnold Palmer	Counts every use.
-Full-inventory marker	Items you can’t pick up (grey icons) turn red-tinted – and un-tint automatically once space is free.
+Global reset – click the game’s top-bar refresh ↻ icon to clear all sessions at once.
 
-Numbers are formatted with a dot as thousands separator ( 12 345 → 12.345 ).
+Ephemeral sessions – nothing is written server-side; data lives only in your browser (plus an icon cache).
 
-⚙️ Controls
-Per-location “Reset” button – sits on the same line as the stats.
+Numbers are formatted with a dot as the thousands separator, e.g. 21.498.
 
-Clears the counts only for the current area and immediately starts tracking again.
+Installation
+Install Tampermonkey (Chrome, Edge, Firefox).
 
-Global reset – press the game’s own top-bar “refresh” ↻ icon.
+Press Create a new script, replace the default stub with the content of
+Item Drop Tracker – Ephemeral Sessions v1.1.user.js, click Save.
 
-Wipes all sessions & “full” flags for every area at once.
+Refresh FarmRPG – the tracker box now appears automatically in every Explore location.
 
-Everything else is automatic – enter an area, the tracker appears; leave it, the box disappears; come back, it rebuilds.
+Usage
+Action	What happens
+Explore click	# of Explores + Stamina rise, item counters increase.
+Drink Apple Cider	Adds the bundled explores + stamina + drop batch.
+Drink Arnold Palmer	Adds items (no explores, no stamina).
+Per-location Reset	Click the Reset button in the box’s top row.
+Global Reset	Click the game’s navbar refresh ↻ icon or hard-reload the page.
 
-🛠️ How to install
-Install Tamper-monkey (Chrome/Edge/Firefox).
+Items already full before entering a location are not counted;
+free inventory slots first if you want them included.
 
-Press “Create New Script”, paste the code, hit Save.
+Known Issues
+Lemonades are currently detected as Arnold Palmers and counted together.
 
-Refresh FarmRPG and start exploring – the box pops up under the action buttons.
+Roadmap
+Correctly separate Lemonade vs. Arnold Palmer.
 
-Tested on the latest desktop browsers. Uses only local storage; nothing is sent anywhere.
+Extend support to all Fishing locations.
 
-✅ Why it’s safe
-No automation – it never clicks or sends requests for you.
+Optional: export session data as CSV.
 
-Read-only – counts what your browser already received.
+Contributing
+Pull requests are welcome!
+Please open an issue first to discuss major changes or new ideas.
 
-Minimal footprint – observer-free, lean intervals, icon cache to cut network.
+License
+MIT – see LICENSE for details.
 
-Enjoy the instant feedback and happy farming!
+FarmRPG is ©️ its respective owners. This userscript is strictly client-side, sends no automated requests, and does not violate the game’s Terms of Service.
