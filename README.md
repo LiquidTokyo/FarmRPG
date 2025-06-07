@@ -1,3 +1,9 @@
+
+
+
+
+
+
 🔍 What it shows
 Stat	Details
 Item counters	Every item the location can drop – auto-discovered from the location info page.
