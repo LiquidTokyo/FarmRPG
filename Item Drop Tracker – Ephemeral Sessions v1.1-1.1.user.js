@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         Item Drop Tracker – Ephemeral Sessions v1.1
+// @name         Item Drop Tracker – Ephemeral Sessions v1.11
 // @namespace    FarmRPG Custom
-// @version      1.1
+// @version      1.11
 // @description  Tracks item drops per Explore location: auto-loads all possible items, real stamina delta, Apple Cider & Palmer, per-location reset and global reset via top-bar “refresh” icon; German thousands separator; highlights full items and remembers them across reloads.
 // @author       LiquidTokyo
 // @match        https://farmrpg.com/*
@@ -34,12 +34,26 @@
   const blank = () => ({ dropCounts:{}, dropOrder:[], explore:0, cider:0, palmer:0, totalStaminaUsed:0, fullFlags:{} });
   const getSession = id => sessions[id] || (sessions[id] = blank());
 
-  const resetSession = id => { sessions[id] = blank(); saveFull(id, {}); };
-
+  const resetSession = id => {
+  const s = getSession(id);        // keep the same object that handlers use
+    s.dropCounts = {};
+    s.dropOrder.length = 0;
+    s.explore = s.cider = s.palmer = s.totalStaminaUsed = 0;
+    s.fullFlags = {};
+    saveFull(id, {});
+  };
   const resetAllSessions = () => {
-    Object.keys(sessions).forEach(id => (sessions[id] = blank()));
+    Object.keys(sessions).forEach(id => {
+      const s = sessions[id];
+      if (s) {
+        s.dropCounts = {};
+        s.dropOrder.length = 0;
+        s.explore = s.cider = s.palmer = s.totalStaminaUsed = 0;
+        s.fullFlags = {};
+      }
+    });
     clearAllFullFlags();
-    buildIfPossible();                              // rebuild current tracker if we are in a location
+    buildIfPossible();
   };
 
   /* ---------- 3. LOCATION & ITEM DISCOVERY ---------- */
